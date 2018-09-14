@@ -6,6 +6,7 @@ public class HW_3 {
         System.out.println("Please, enter a count of numbers");
         int n = sc.nextInt();
         int[] a = new int[n];
+        System.out.println("Please, enter a numbers");
         for (int i = 0 ; i < n; i++) {
             a[i] = sc.nextInt();
         }
@@ -15,6 +16,6 @@ public class HW_3 {
                 k++;
             }
         }
-        System.out.println(k);
+        System.out.println("Local Maximum: " + k);
     }
 }
