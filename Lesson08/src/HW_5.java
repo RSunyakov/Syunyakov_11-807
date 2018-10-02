@@ -39,8 +39,9 @@ public class HW_5 {
         }
         for (int i = 0; i < FirstCountOfRows; i++) {
             for (int j = 0; j < SecondCountOfCollumns; j++) {
-                System.out.println(ResultOfMultiplication[i][j]);
+                System.out.print(ResultOfMultiplication[i][j] + " ");
             }
+            System.out.println();
         }
     }
 }
