@@ -9,13 +9,13 @@ public class IntArrayList implements IntList {
     private static final double EXTENSION_COEF = 1.5;
 
     public IntArrayList() {
-        elements = new int[DEFAULT_CAPACITY];
-        capacity = DEFAULT_CAPACITY;
+        this.elements = new int[DEFAULT_CAPACITY];
+        this.capacity = DEFAULT_CAPACITY;
     }
 
     @Override
     public int size() {
-        return elements.length;
+        return count;
     }
 
     @Override
@@ -87,6 +87,23 @@ public class IntArrayList implements IntList {
 
     @Override
     public void addAll(IntList intList) {
+//        int newCapacity = intList.size(); //создаю новую переменную, в которой буду хранить размер листа
+//        int[] newElements = new int[newCapacity]; //создаю новый массив длинной, равной длинне листа
+//        for (int i = 0; i < capacity; i++) { //а в цикле просто переношу старые данные из elements в новый расширенный массив
+//            newElements[i] = elements[i];
+//            count++;
+//        }
+//        capacity = newCapacity; // обновляем значения
+//        elements = newElements; //здесь приравниваем ссылку, чтобы теперь везде использовася массив newElements
+        for (int i = 0; i < intList.size(); i++) {
+            if (capacity == count) {
+                grow();
+            }
+            add(intList.get(i));
+        }
+    }
+
+   /* public void addAll(IntList intList, int startPosition) {
         int newCapacity = intList.size();
         int[] newElements = new int[newCapacity];
         for (int i = 0; i < capacity; i++) {
@@ -96,10 +113,10 @@ public class IntArrayList implements IntList {
         capacity = newCapacity;
         elements = newElements;
 
-        for (int i = elements.length - 1; i < intList.size(); i++) {
+        for (int i = startPosition; i < intList.size(); i++) {
             elements[i] = intList.get(i);
         }
-    }
+    }*/ //FIXME доделать, если лист вставляют в середину массива
 
     @Override
     public int[] toArray() {
@@ -119,5 +136,29 @@ public class IntArrayList implements IntList {
             }
         }
         return i;
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new MyIter();
+    }
+
+
+    class MyIter implements Iterator {
+        private int currentIndex;
+
+        public MyIter() {
+            currentIndex = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < count;
+        }
+
+        @Override
+        public int next() {
+            return elements[currentIndex++];
+        }
     }
 }
